@@ -1,20 +1,43 @@
-# SmartSaver – AI Personal Finance Manager
+# Personal Finance Tracker (Monorepo)
 
-SmartSaver is a web-based personal finance manager that helps users analyze their past 3 months of expenses and provides AI-powered recommendations to save up to 10% of their spending. It features a dynamic dashboard, expense tracking, and actionable insights for better financial management.
+Services:
+- backend: Node.js + Express + JWT + MySQL
+- ai-service: Python + FastAPI (recommendations)
+- frontend: React + Vite + MUI + Redux Toolkit + Recharts
+- db: MySQL init scripts
 
-## Features
-- Track expenses manually or via bank integration (future feature)
-- Categorize spending (e.g., groceries, entertainment, subscriptions)
-- Analyze last 3 months of transactions
-- AI-powered suggestions to reduce expenses
-- Visual dashboards with interactive charts
-- Set monthly budgets and track savings goals
+## Quickstart (Docker)
+1. Copy env: `cp .env.example .env` and update values
+2. Build & run: `docker compose up --build`
+3. Frontend: http://localhost:5173
+4. Backend: http://localhost:8080/api/health
+5. AI Service: http://localhost:8000/health
+6. MySQL: localhost:3306 (user: fin_user / fin_pass)
 
-## Tech Stack
-- **Frontend:** React.js with Material-UI / Tailwind CSS
-- **Backend:** Node.js + Express.js or Java Spring Boot
-- **Database:** MySQL / SQL
-- **AI Module:** Python (Pandas, NumPy, Scikit-learn) for savings analysis
-- **Deployment:** Vercel (Frontend), Render/Heroku/AWS (Backend & AI Module), MySQL cloud
+## Local Dev (without Docker)
+- Backend
+  - `cd backend && cp ../.env.example ../.env`
+  - `npm install`
+  - `npm run dev`
+- AI Service
+  - `cd ai-service && python -m venv .venv && source .venv/bin/activate`
+  - `pip install -r requirements.txt`
+  - `uvicorn app.main:app --reload`
+- Frontend
+  - `cd frontend && npm install`
+  - `cp .env.example .env`
+  - `npm run dev`
 
+## API Endpoints
+- `POST /api/auth/signup { name, email, password }`
+- `POST /api/auth/login { email, password }`
+- `GET /api/transactions` (Bearer)
+- `POST /api/transactions` (Bearer)
+- `PUT /api/transactions/:id` (Bearer)
+- `DELETE /api/transactions/:id` (Bearer)
+- `GET /api/dashboard` (Bearer)
+- `GET /api/analytics` (Bearer)
 
+## Notes
+- AI service suggests 10% reductions for top categories in last 3 months
+- Charts: Pie (by category), Line (monthly), Bar (suggested savings)

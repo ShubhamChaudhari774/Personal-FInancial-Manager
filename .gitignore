@@ -1,0 +1,1 @@
+node_modules\n.dist\n.env\n.DS_Store\n.vscode\n.python_env\n__pycache__\nbuild\ndist\n.venv\n.env.*\ncoverage\n*.pyc
